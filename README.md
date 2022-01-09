@@ -6,9 +6,13 @@ Build a cardano-node container, running the [latest pre-compiled executable](htt
 ```docker build -t [owner/repo] .```
 
 Run the container
+
 ```docker volume create node-db```
+
 ```docker run -d -p 12798:12798 --mount source=node-db,target=/cardano/node-db [owner/repo]```
 
 Run Prometheus container for monitoring
-(Requires a prometheus.yml file containing the node's container address)
+
+(Requires a prometheus.yml file containing the node's container address as a target)
+
 ```docker run -d -p 9090:9090 -v [path-to-prometheus.yml]:/etc/prometheus/prometheus.yml prom/prometheus```
