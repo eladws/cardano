@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  cardano-node:
+    image: "eladws/cardano-node"
+    ports:
+      - "12789:12798"
+    volumes:
+      - cardano-node-db:/cardano/node-db
+  prometheus:
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-db:/prometheus
+volumes:
+    cardano-node-db:
+    prometheus-db:

@@ -16,3 +16,5 @@ Run Prometheus container for monitoring
 (Requires a prometheus.yml file containing the node's container address as a target)
 
 ```docker run -d -p 9090:9090 -v [path-to-prometheus.yml]:/etc/prometheus/prometheus.yml prom/prometheus```
+
+The above are combined using `docker-compose.yaml` which is using the predefined prometheus configuration in the `prometheus` folder.
