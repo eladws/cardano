@@ -1,12 +1,16 @@
 version: "3.9"
 services:
-  cardano-node:
+  relay-node:
+    container_name: "relay-node"
     image: "eladws/cardano-node"
     ports:
       - "12789:12798"
+      - "3001:3001"
     volumes:
       - cardano-node-db:/cardano/node-db
-  prometheus:
+      - ./topology-updates:/cardano/topology-updates
+  relay-node-prometheus:
+    container_name: "relay-node-prometheus"
     image: "prom/prometheus"
     ports:
       - "9090:9090"
