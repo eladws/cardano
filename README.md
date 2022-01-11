@@ -1,7 +1,7 @@
 # cardano
 My Cardano node setup
 
-<h2>Full node deployment </h2>
+<h2>Full node deployment</h2>
 For a full setup on a fresh server (i.e, an AWS EC2 instance), all you have to do is run the *setup.sh* script.
 
 It will start a *docker-compose* application running a relay node alongside a prometheus instance, and will setup several other required tasks such as topolgy updates, etc.
