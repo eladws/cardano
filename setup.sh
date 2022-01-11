@@ -27,8 +27,8 @@ chmod +x cardano/*.sh
 mkdir cardano/topology-updates
 wget -O cardano/topology-updates/mainnet-topology.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-topology.json
 
-echo "55 * * * * /cardano/topology_push.sh" > crontab.txt
-echo "5 5 * * * /cardano/topology_pull.sh" >> crontab.txt
+echo "55 * * * * ./cardano/topology_push.sh" > crontab.txt
+echo "5 5 * * * ./cardano/topology_pull.sh" >> crontab.txt
 crontab crontab.txt
 
 # start node
