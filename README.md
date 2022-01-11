@@ -4,7 +4,7 @@ My Cardano node setup, happily shared for the greater good 🍻
 My goal was to try to make the process as simple as possible, and after a significant amount of time spent reading and experimenting, I mangaged to put everything in a <strong><em>single setup script</em></strong>, that will install everything you need and start a healthy and good-looking cardano node 🥳 
 
 <h2>Full node deployment</h2>
-For a full setup on a fresh server (e.g, an AWS EC2 instance), all you have to do is run the *setup.sh* script.
+For a full setup on a fresh server (e.g, an AWS EC2 instance), all you have to do is run the <strong>setup.sh</strong> script.
 
 It will install all required packages, start a <strong>docker-compose</strong> application running a relay node alongside a prometheus instance, and setup several other required tasks such as a topolgy updater, etc.
 
