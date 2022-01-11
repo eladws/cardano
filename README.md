@@ -8,6 +8,13 @@ It will start a *docker-compose* application running a relay node alongside a pr
 
 (An important dicussion and relevant resources regarding the topology updater can be found [here](https://forum.cardano.org/t/is-running-topology-updater-a-must/91494) )
 
+<h4>Deploying on a fresh Linux instance</h4>
+To run on a fresh Linux instance, log-in to the instance, and copy `setup.sh` into the root folder (using *scp* or similar software).
+
+Give it run permissions, and execute the script with sudo.
+
+If all is good, you should be able to see metrics updated on port 9090, and the topology file gets updated once per hour.
+
 <h2>Just run the containers</h2>
 Alternatively, you can build and run the containers yourself:
 
