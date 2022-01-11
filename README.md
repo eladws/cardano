@@ -1,10 +1,14 @@
 # cardano
 My Cardano node setup
 
+<h2>Full node deployment </h2>
 For a full setup on a fresh server (i.e, an AWS EC2 instance), all you have to do is run the *setup.sh* script.
 
 It will start a *docker-compose* application running a relay node alongside a prometheus instance, and will setup several other required tasks such as topolgy updates, etc.
 
+(An important dicussion and relevant resources regarding the topology updater can be found [here](https://forum.cardano.org/t/is-running-topology-updater-a-must/91494) )
+
+<h2>Just run the containers</h2>
 Alternatively, you can build and run the containers yourself:
 
 Build a cardano-node container, running the [latest pre-compiled executable](https://hydra.iohk.io/job/Cardano/cardano-node/cardano-node-linux/latest/)
