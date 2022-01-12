@@ -15,7 +15,7 @@ Alternatively, you can `git clone` this repo into your server's home folder, and
 You can choose `setup-official-image.sh` if you want to run the node using [IOHKs official docker image](https://hub.docker.com/r/inputoutput/cardano-node), or `setup-custom-image.sh` if you want to run the node using a custom build docker image (you can of course use my image, and check out the `Dockerfile` for more details). 
 
 
-Give the script run permissions, and execute it with sudo.
+Give the script run permissions, and execute it. (<em>important:</em> the script is using `sudo` whenever required, so DO NOT run the script itself with `sudo` !)
 
 If all is good, you should be able to see metrics updated on port 9090, and the topology file gets updated once per hour.
 
