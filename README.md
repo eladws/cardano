@@ -12,12 +12,17 @@ It will install all required packages, start a <strong>docker-compose</strong> a
 To run on a fresh Linux instance, log-in to the instance, and copy the relevant setup script into the root folder (using <strong>scp</strong> or similar software).
 Alternatively, you can `git clone` this repo into your server's home folder, and run the setup script from there.
 
-You can choose `setup-official-image.sh` if you want to run the node using IOHKs official docker image, or `setup-custom-image.sh` if you want to run the node using a custom build docker image (you can of course use my image, and check out the `Dockerfile` for more details). 
+You can choose `setup-official-image.sh` if you want to run the node using [IOHKs official docker image](https://hub.docker.com/r/inputoutput/cardano-node), or `setup-custom-image.sh` if you want to run the node using a custom build docker image (you can of course use my image, and check out the `Dockerfile` for more details). 
 
 
 Give the script run permissions, and execute it with sudo.
 
 If all is good, you should be able to see metrics updated on port 9090, and the topology file gets updated once per hour.
+
+<h4>What is a topology updater?</h4>
+In short, it is a process you have to run in order for your node to be known to other peers, and have a list of updated valid peers. This is highly recommended until Cardano will implement its peer-to-peer mechanism.
+
+You can find a comprehensive discussion [here](https://forum.cardano.org/t/is-running-topology-updater-a-must/91494).
 
 <h2>Just run the containers</h2>
 Alternatively, you can build and run the containers yourself:
