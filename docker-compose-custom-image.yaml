@@ -9,7 +9,7 @@ services:
     volumes:
       - relay-node-db:/node-db
       - relay-node-ipc:/node-ipc
-      - ./cardano/topology-updates:/node-topology
+      - ./topology-updates:/node-topology
   relay-node-prometheus:
     container_name: "relay-node-prometheus"
     image: "prom/prometheus"
@@ -17,7 +17,7 @@ services:
       - "9090:9090"
     volumes:
       - prometheus-db:/prometheus
-      - ./cardano/prometheus:/etc/prometheus
+      - ./prometheus:/etc/prometheus
 volumes:
     relay-node-db:
     relay-node-ipc:
