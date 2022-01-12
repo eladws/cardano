@@ -35,15 +35,5 @@ echo "55 * * * * ./cardano/topology_push.sh" > crontab.txt
 echo "5 5 * * * ./cardano/topology_pull.sh" >> crontab.txt
 crontab crontab.txt
 
-# downlaod default configuration
-mkdir cardano/node-config
-wget -O cardano/node-config/mainnet-config.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-config.json
-wget -O cardano/node-config/mainnet-byron-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-byron-genesis.json
-wget -O cardano/node-config/mainnet-shelley-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-shelley-genesis.json
-wget -O cardano/node-config/mainnet-alonzo-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-alonzo-genesis.json
-
-sed -i 's/127.0.0.1/0.0.0.0/g' cardano/node-config/mainnet-config.json
-sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/node-config/mainnet-config.json
-
 # start node
-sudo docker-compose -f cardano/official-iohk-image/docker-compose.yaml up -d
+sudo docker-compose -f cardano/docker-compose-custom-image.yaml up -d
