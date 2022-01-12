@@ -4,18 +4,17 @@ My Cardano node setup, happily shared for the greater good 🍻
 My goal was to try to make the process as simple as possible, and after a significant amount of time spent reading and experimenting, I mangaged to put everything in a <strong><em>single setup script</em></strong>, that will install everything you need and start a healthy and good-looking cardano node 🥳 
 
 <h2>Full node deployment</h2>
-For a full setup on a fresh server (e.g, an AWS EC2 instance), all you have to do is run the relevant <strong>setup.sh</strong> script.
+For a full setup on a fresh server (e.g, an AWS EC2 instance), all you have to do is run the relevant setup script.
 
-It will install all required packages, start a <strong>docker-compose</strong> application running a relay node alongside a prometheus instance, and setup several other required tasks such as a topolgy updater, etc.
+It will install all required packages, start a docker-compose application running a relay node alongside a prometheus instance, and setup several other required tasks such as a topolgy updater, etc.
 
-<h4>Deploying on a fresh Linux instance</h4>
-To run on a fresh Linux instance, log-in to the instance, and copy the relevant setup script into the root folder (using <strong>scp</strong> or similar software).
+Just log-in to your instance, copy the relevant setup script into the root folder (using <strong>scp</strong> or similar software) and run it.
 Alternatively, you can `git clone` this repo into your server's home folder, and run the setup script from there.
 
-You can choose `setup-official-image.sh` if you want to run the node using [IOHKs official docker image](https://hub.docker.com/r/inputoutput/cardano-node), or `setup-custom-image.sh` if you want to run the node using a custom build docker image (you can of course use my image, and check out the `Dockerfile` for more details). 
+You can choose `setup-official-image.sh` if you want to run the node using [IOHK's official docker image](https://hub.docker.com/r/inputoutput/cardano-node), or `setup-custom-image.sh` if you want to run the node using a custom built docker image (you can of course use my image, and check out the `Dockerfile` I used to build it for more details). 
 
 
-Give the script run permissions, and execute it. (<em>important:</em> the script is using `sudo` whenever required, so DO NOT run the script itself with `sudo` !)
+All you have to do is run the script. (<em>important:</em> the script is using `sudo` whenever required, so DO NOT run the script itself with `sudo` !)
 
 If all is good, you should be able to see metrics updated on port 9090, and the topology file gets updated once per hour.
 
