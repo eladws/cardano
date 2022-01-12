@@ -2,8 +2,7 @@ FROM ubuntu
 
 ENV CARDANO_NODE_HOME=/cardano
 ENV CARDANO_NODE_CONFIG_FILE=${CARDANO_NODE_HOME}/configuration/cardano/mainnet-config.json
-ENV CARDANO_NODE_DB=${CARDANO_NODE_HOME}/node-db
-ENV CARDANO_NODE_SOCKET_PATH=${CARDANO_NODE_DB}/node.socket
+ENV PATH="${CARDANO_NODE_HOME}:${PATH}"
 
 WORKDIR ${CARDANO_NODE_HOME}
 
@@ -18,7 +17,10 @@ RUN tar -xf binary-dist
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' ${CARDANO_NODE_CONFIG_FILE}
 RUN sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' ${CARDANO_NODE_CONFIG_FILE}
 
+# Using GC parameters from https://forum.cardano.org/t/solving-the-cardano-node-huge-memory-usage-done/67032
 CMD ["/cardano/cardano-node", "run", \
-    "--topology", "/cardano/topology-updates/mainnet-topology.json", \
-    "--database-path", "/cardano/node-db", \
-    "--socket-path", "/cardano/node-db/node.socket"]
+    "+RTS", "-N2", "--disable-delayed-os-memory-return", "-I0.3", \
+    "-Iw600", "-A16m", "-F1.5", "-H2500M", "-T", "-S", "-RTS", \
+    "--topology", "/node-topology/mainnet-topology.json", \
+    "--database-path", "/node-db", \
+    "--socket-path", "/node-ipc/node.socket"]

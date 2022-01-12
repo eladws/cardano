@@ -1,0 +1,10 @@
+    global:
+      scrape_interval:     15s
+      external_labels:
+        monitor: 'relay-node'
+
+    scrape_configs:
+      - job_name: 'cardano-relay' # To scrape data from the cardano node
+        scrape_interval: 5s
+        static_configs:
+          - targets: ['relay-node:12798']

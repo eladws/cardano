@@ -8,12 +8,12 @@ For a full setup on a fresh server (e.g, an AWS EC2 instance), all you have to d
 
 It will install all required packages, start a <strong>docker-compose</strong> application running a relay node alongside a prometheus instance, and setup several other required tasks such as a topolgy updater, etc.
 
-(An important dicussion and relevant resources regarding the topology updater can be found [here](https://forum.cardano.org/t/is-running-topology-updater-a-must/91494))
-
 <h4>Deploying on a fresh Linux instance</h4>
 To run on a fresh Linux instance, log-in to the instance, and copy <strong>setup.sh</strong> into the root folder (using <strong>scp</strong> or similar software).
 
-Give it run permissions, and execute the script with sudo.
+You can choose the `official-iohk-image/setup.sh` if you want to run the node using IOHKs official docker image, or `custom-image/setup.sh` if you want to run the node using a custom build docker image (you can of course use my image, and check out the `Dockerfile` for more details). 
+
+Give `setup.sh` run permissions, and execute it with sudo.
 
 If all is good, you should be able to see metrics updated on port 9090, and the topology file gets updated once per hour.
 
@@ -28,7 +28,7 @@ Run the container
 
 ```docker volume create node-db```
 
-```docker run -d -p 12798:12798 --mount source=node-db,target=/cardano/node-db [owner/repo]```
+```docker run -d -p 12798:12798 --mount source=node-db,target=/node-db [owner/repo]```
 
 Run Prometheus container for monitoring
 

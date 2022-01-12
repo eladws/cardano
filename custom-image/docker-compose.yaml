@@ -4,19 +4,21 @@ services:
     container_name: "relay-node"
     image: "eladws/cardano-node"
     ports:
-      - "12789:12798"
+      - "12798:12798"
       - "3001:3001"
     volumes:
-      - cardano-node-db:/cardano/node-db
-      - ./topology-updates:/cardano/topology-updates
+      - relay-node-db:/node-db
+      - relay-node-ipc:/node-ipc
+      - ./topology-updates:/node-topology
   relay-node-prometheus:
     container_name: "relay-node-prometheus"
     image: "prom/prometheus"
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus:/etc/prometheus
       - prometheus-db:/prometheus
+      - ./prometheus:/etc/prometheus
 volumes:
-    cardano-node-db:
+    relay-node-db:
+    relay-node-ipc:
     prometheus-db:

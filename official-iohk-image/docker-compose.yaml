@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  relay-node:
+    container_name: "relay-node"
+    image: "inputoutput/cardano-node:${CARDANO_NODE_VERSION:-1.33.0}"
+    command: [
+      "run",
+      "+RTS -N2 --disable-delayed-os-memory-return -I0.3 -Iw600 -A16m -F1.5 -H2500M -T -S -RTS",
+      "--topology /node-topology/mainnet-topology.json",
+      "--config /node-config/mainnet-config.json",
+      "--socket-path /node-ipc/node.socket",
+      "--database-path /node-db"
+    ]
+    ports:
+      - "12798:12798"
+      - "3001:3001"
+    volumes:
+      - relay-node-db:/node-db
+      - relay-node-ipc:/node-ipc
+      - ./node-config:/node-config
+      - ./topology-updates:/node-topology
+  relay-node-prometheus:
+    container_name: "relay-node-prometheus"
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-db:/prometheus
+      - ./prometheus:/etc/prometheus
+volumes:
+    relay-node-db:
+    relay-node-ipc:
+    prometheus-db:
