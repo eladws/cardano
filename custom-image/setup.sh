@@ -32,4 +32,4 @@ echo "5 5 * * * ./cardano/topology_pull.sh" >> crontab.txt
 crontab crontab.txt
 
 # start node
-sudo docker-compose -f cardano/docker-compose.yaml up -d
+sudo docker-compose -f cardano/custom-image/docker-compose.yaml up -d

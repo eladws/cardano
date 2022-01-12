@@ -42,4 +42,4 @@ sed -i 's/127.0.0.1/0.0.0.0/g' cardano/node-config/mainnet-config.json
 sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/node-config/mainnet-config.json
 
 # start node
-sudo docker-compose -f cardano/docker-compose.yaml up -d
+sudo docker-compose -f cardano/official-iohk-image/docker-compose.yaml up -d
