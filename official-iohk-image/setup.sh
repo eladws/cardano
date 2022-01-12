@@ -18,9 +18,13 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-# clone git repo
-sudo apt-get install -y git
-git clone https://github.com/eladws/cardano.git cardano
+# clone git repo if it is not present
+if [ ! -d "cardano" ] 
+then
+    echo "Cloning repo..."
+    sudo apt-get install -y git
+    git clone https://github.com/eladws/cardano.git cardano
+fi
 chmod +x cardano/*.sh
 
 # download initial topology, and set topology update processes
