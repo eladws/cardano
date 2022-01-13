@@ -33,6 +33,8 @@ wget -O cardano/topology-updates/mainnet-topology.json https://hydra.iohk.io/job
 
 echo "55 * * * * ./cardano/topology_push.sh" > crontab.txt
 echo "5 5 * * * ./cardano/topology_pull.sh" >> crontab.txt
+# set daily restart at 6, to refresh topology
+echo "* 6 * * * sudo docker-compose -f /cardano/docker-compose-custom-image.yaml restart relay-node" >> crontab.txt
 crontab crontab.txt
 
 # start node
