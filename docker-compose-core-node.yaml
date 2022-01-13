@@ -7,8 +7,8 @@ services:
       - "12798:12798"
       - "5555:5555"
     volumes:
-      - relay-node-db:/node-db
-      - relay-node-ipc:/node-ipc
+      - core-node-db:/node-db
+      - core-node-ipc:/node-ipc
       - ./block-producer-topology:/node-topology
       - ./node-keys:/node-keys
   core-node-prometheus:
@@ -20,6 +20,6 @@ services:
       - prometheus-db:/prometheus
       - ./prometheus-core-node:/etc/prometheus
 volumes:
-    relay-node-db:
-    relay-node-ipc:
+    core-node-db:
+    core-node-ipc:
     prometheus-db:
