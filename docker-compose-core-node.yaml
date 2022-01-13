@@ -11,7 +11,7 @@ services:
       - relay-node-ipc:/node-ipc
       - ./block-producer-topology:/node-topology
       - ./node-keys:/node-keys
-  relay-node-prometheus:
+  core-node-prometheus:
     container_name: "core-node-prometheus"
     image: "prom/prometheus"
     ports:
