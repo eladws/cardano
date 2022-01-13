@@ -5,6 +5,7 @@ services:
     image: "inputoutput/cardano-node:${CARDANO_NODE_VERSION:-1.33.0}"
     command: [
       "run",
+      # Using GC parameters from https://forum.cardano.org/t/solving-the-cardano-node-huge-memory-usage-done/67032
       "+RTS -N2 --disable-delayed-os-memory-return -I0.3 -Iw600 -A16m -F1.5 -H2500M -T -S -RTS",
       "--topology /node-topology/mainnet-topology.json",
       "--config /node-config/mainnet-config.json",

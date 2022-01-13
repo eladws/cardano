@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  core-node:
+    container_name: "core-node"
+    image: "eladws/cardano-core-node"
+    ports:
+      - "12798:12798"
+      - "3001:3001"
+    volumes:
+      - relay-node-db:/node-db
+      - relay-node-ipc:/node-ipc
+      - ./block-producer-topology:/node-topology
+      - ./node-keys:/node-keys
+  relay-node-prometheus:
+    container_name: "core-node-prometheus"
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-db:/prometheus
+      - ./prometheus-core-node:/etc/prometheus
+volumes:
+    relay-node-db:
+    relay-node-ipc:
+    prometheus-db:

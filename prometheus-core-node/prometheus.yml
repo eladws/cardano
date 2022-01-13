@@ -1,0 +1,10 @@
+    global:
+      scrape_interval:     15s
+      external_labels:
+        monitor: 'core-node'
+
+    scrape_configs:
+      - job_name: 'cardano-core' # To scrape data from the cardano node
+        scrape_interval: 5s
+        static_configs:
+          - targets: ['core-node:12798']
