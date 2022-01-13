@@ -23,4 +23,5 @@ CMD ["/cardano/cardano-node", "run", \
     "-Iw600", "-A16m", "-F1.5", "-H2500M", "-T", "-S", "-RTS", \
     "--topology", "/node-topology/mainnet-topology.json", \
     "--database-path", "/node-db", \
-    "--socket-path", "/node-ipc/node.socket"]
+    "--socket-path", "/node-ipc/node.socket", \
+    "--port", "6666"]

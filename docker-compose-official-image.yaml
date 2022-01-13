@@ -10,11 +10,12 @@ services:
       "--topology /node-topology/mainnet-topology.json",
       "--config /node-config/mainnet-config.json",
       "--socket-path /node-ipc/node.socket",
-      "--database-path /node-db"
+      "--database-path /node-db",
+      "--port", "6666"
     ]
     ports:
       - "12798:12798"
-      - "3001:3001"
+      - "6666:6666"
     volumes:
       - relay-node-db:/node-db
       - relay-node-ipc:/node-ipc
