@@ -5,7 +5,7 @@ services:
     image: "eladws/cardano-core-node"
     ports:
       - "12798:12798"
-      - "3001:3001"
+      - "5555:5555"
     volumes:
       - relay-node-db:/node-db
       - relay-node-ipc:/node-ipc
