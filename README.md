@@ -1,6 +1,8 @@
 # cardano
 My Cardano node setup, happily shared for the greater good 🍻
 
+(If you like it, please Stake some of your $ADA with me by delegating to the [TRAIL](https://pooltool.io/pool/2191a50e38d946f0980fce56cd338d6d74781b6ee03e491bcb8cdaa2) pool! 🙏🏻)
+
 My goal was to try to make the process as simple as possible, and after a significant amount of time spent reading and experimenting, I mangaged to put everything in a <strong><em>single setup script</em></strong>, that will install everything you need and start a healthy and good-looking cardano node 🥳 
 
 <h2>Full node deployment</h2>
