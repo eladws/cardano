@@ -9,6 +9,7 @@ services:
     volumes:
       - relay-node-db:/node-db
       - relay-node-ipc:/node-ipc
+      - ./node-config:/node-config
       - ./topology-updates:/node-topology
   relay-node-prometheus:
     container_name: "relay-node-prometheus"
