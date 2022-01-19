@@ -32,16 +32,26 @@ Then, open the Linux shell (I used Ubuntu 20.04 LTS, from the Microsoft App Stor
 That's it 😎
 
 <h2>Deploying a core (block-producing node)</h2>
- <!-- TODO: include in the smae setup using a flag ?-->
-If you want to run a block producer (core) node - use `setup-core-node.sh`, but make sure you copy your topology, keys and certificate to the right place before running the script (see [here](https://developers.cardano.org/docs/stake-pool-course/handbook/register-stake-pool-metadata) for details). 
+
+If you want to run a block producer (core) node, simply run the same script with the `-m core` flag.
+
+Note that in order to run a block producing node you must make sure you have the required keys and certificate under `cardano/node-keys` before running the script (see [here](https://developers.cardano.org/docs/stake-pool-course/handbook/register-stake-pool-metadata) for details).
+
+You should also edit the topology at `cardano/block-producer-topology/block-producer-topology.json` to contain the public IP address of your relay node.
 
 <h2>Script parameters</h2>
 
-By using the `-i` flas, you can specify the docker image that will be used for the cardano node.
+<h4>Choose image</h4>
 
-While the default is using [IOHK's official docker image](https://hub.docker.com/r/inputoutput/cardano-node), you can specify any other image as long as it respects the parameters defined in the `docker-compose.yaml` to specify some required configurations (i.e, topology file, port, etc.). 
+By using the `-i` flag, you can specify the docker image that will be used for the cardano node.
+
+While the default is using [IOHK's official docker image](https://hub.docker.com/r/inputoutput/cardano-node), you can specify any other image as long as it respects the parameters defined in the `docker-compose.yaml`, specifying some required configurations (i.e, topology file, port, etc.). 
 
 You can of course use my image (`eladws/cardano-node`), and check out the `Dockerfile` I used to build it for more details. 
+
+<h4>Relay or Core</h4>
+
+By using the `-m` flag, you can specify which mode you want to deploy - core or relay.
 
 <h2>What is a topology updater?</h2>
 
@@ -53,6 +63,8 @@ You can find a comprehensive discussion [here](https://forum.cardano.org/t/is-ru
 
 This setup is using port `6666` as an incoming port for a regular (relay) node, and port `5555` for the block producing (core) node.
 The host addresses are remained untouched, and need to be set manually if neccessary.
+
+Prometheus is made available on port `9090`.
 
 <h2>Just run the containers</h2>
 

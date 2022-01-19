@@ -1,5 +1,5 @@
 #!/bin/bash
-node_image="custom"
+node_image="official"
 node_mode="relay"
 while getopts i:m: flag
 do
@@ -64,11 +64,10 @@ if [ node_mode = "relay" ];
     # set topology updates and daily restarts as cron jobs
     echo "55 * * * * ./cardano/topology_push.sh" > crontab.txt
     echo "5 5 * * * ./cardano/topology_pull.sh" >> crontab.txt
-    echo "* 6 * * * sudo docker-compose -f cardano/docker-compose-custom-image.yaml restart relay-node" >> crontab.txt
+    echo "* 6 * * * docker-compose -f cardano/docker-compose-custom-image.yaml restart relay-node" >> crontab.txt
     crontab crontab.txt
 elif [ node_mode = "core" ];
     # check required keys exist
-    # check files required to run a core-node
     if [ ! -d "cardano/node-keys" ] 
     then
         echo "Cannot run without node-keys folder!"
@@ -89,15 +88,26 @@ elif [ node_mode = "core" ];
         echo "Missing node.cert!"
         exit 1
     fi
+    # check required topology was set
+    if grep -q "RELAY IP ADDRESS" "cardano/block-producer-topology/block-producing-topology.json"; then
+        echo "You need to explicitly set your relay public IP address and port in cardano/block-producer-topology/block-producing-topology.json !"
+        exit 1
+    fi
 else
     echo "Unknown node mode $node_mode. Please specify relay (default) or core."
     exit 1
 fi
 
 # TODO: make a single docker compose with all components, with configurable image, and optional core-node !
-echo "Starting docker $node_mode node using node-image $node_image ..."
+echo "Starting docker $node_mode node using $node_image image..."
+compose_file = cardano/docker-compose-official.yaml
+if [ node_image = "official" ] 
+    compose_file = cardano/docker-compose-custom.yaml
+fi
+
 if [ node_mode = "relay" ];
-    sudo docker-compose -f cardano/docker-compose-$node_image-image.yaml up -d
+    CARDANO_NODE_IMAGE=$node_image docker-compose -f $compose_file up -d
 elif [ node_mode = "core" ];
-    sudo docker-compose -f cardano/docker-compose-core-node.yaml up -d
+    # TODO: core node should have custom \ official compose files too
+    CARDANO_NODE_IMAGE=$node_image docker-compose -f cardano/docker-compose-core-node.yaml up -d
 fi
