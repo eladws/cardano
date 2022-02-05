@@ -59,14 +59,18 @@ wget -O cardano/node-config/mainnet-alonzo-genesis.json https://hydra.iohk.io/jo
 # make required changes to configuration file
 sed -i 's/127.0.0.1/0.0.0.0/g' cardano/node-config/mainnet-config.json
 sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/node-config/mainnet-config.json
+# TODO: check if ports should also be changed for core node
 
-if [ node_mode = "relay" ];
+if [ node_mode = "relay" ]
+then
     # set topology updates and daily restarts as cron jobs
     echo "55 * * * * ./cardano/topology_push.sh" > crontab.txt
     echo "5 5 * * * ./cardano/topology_pull.sh" >> crontab.txt
     echo "* 6 * * * docker-compose -f cardano/docker-compose-custom-image.yaml restart relay-node" >> crontab.txt
     crontab crontab.txt
+fi
 elif [ node_mode = "core" ];
+then
     # check required keys exist
     if [ ! -d "cardano/node-keys" ] 
     then
@@ -93,6 +97,7 @@ elif [ node_mode = "core" ];
         echo "You need to explicitly set your relay public IP address and port in cardano/block-producer-topology/block-producing-topology.json !"
         exit 1
     fi
+fi
 else
     echo "Unknown node mode $node_mode. Please specify relay (default) or core."
     exit 1
@@ -101,12 +106,12 @@ fi
 # TODO: make a single docker compose with all components, with configurable image, and optional core-node !
 echo "Starting docker $node_mode node using $node_image image..."
 compose_file = cardano/docker-compose-official.yaml
-if [ node_image = "official" ] 
+if [ node_image != "official" ] 
     compose_file = cardano/docker-compose-custom.yaml
 fi
 
 if [ node_mode = "relay" ];
-    CARDANO_NODE_IMAGE=$node_image docker-compose -f $compose_file up -d
+    CARDANO_NODE_IMAGE=$node_image cardano/docker-compose -f $compose_file up -d
 elif [ node_mode = "core" ];
     # TODO: core node should have custom \ official compose files too
     CARDANO_NODE_IMAGE=$node_image docker-compose -f cardano/docker-compose-core-node.yaml up -d

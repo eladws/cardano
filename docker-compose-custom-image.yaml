@@ -17,9 +17,10 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - prometheus-db:/prometheus
+      - relay-prometheus-db:/prometheus
       - ./prometheus:/etc/prometheus
 volumes:
+    # add custom paths if required
     relay-node-db:
     relay-node-ipc:
-    prometheus-db:
+    relay-prometheus-db:
