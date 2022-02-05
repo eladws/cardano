@@ -1,37 +1,74 @@
 # cardano
 My Cardano node setup, happily shared for the greater good 🍻
 
-My goal was to try to make the process as simple as possible, and after a significant amount of time spent reading and experimenting, I mangaged to put everything in a <strong><em>single setup script</em></strong>, that will install everything you need and start a healthy and good-looking cardano node 🥳 
+My goal was to try and make the process as simple as possible, and after a significant amount of time spent reading and experimenting, I mangaged to put everything in a <strong><em>single setup script</em></strong>, that will install everything you need and start a healthy and good-looking cardano node 🥳 
 
-<h2>Full node deployment</h2>
-For a full setup on a fresh server (e.g, an AWS EC2 instance), all you have to do is run the relevant setup script.
+There's also a script for a complete Staking pool setup. 
 
-It will install all required packages, start a docker-compose application running a relay node alongside a prometheus instance, and setup several other required tasks such as a topolgy updater, etc.
+*** If you find it helpful, please support me by staking with the <em>TRAIL</em> pool 🙏🏻 ***
 
-Just log-in to your instance, copy the relevant setup script into the root folder (using <strong>scp</strong> or similar software) and run it.
-Alternatively, you can `git clone` this repo into your server's home folder, and run the setup script from there.
+<h2>Simple node deployment</h2>
 
-You can choose `setup-official-image.sh` if you want to run the node using [IOHK's official docker image](https://hub.docker.com/r/inputoutput/cardano-node), or `setup-custom-image.sh` if you want to run the node using a custom built docker image (you can of course use my image, and check out the `Dockerfile` I used to build it for more details). 
+First, give your user the required permissions to run all required commands. Depends on your opearating system, it should e something like:
 
-If you want to run a block producer (core) node - use `setup-core-node.sh`, but make sure you copy your topology, keys and certificate to the right place before running the script (see [here](https://developers.cardano.org/docs/stake-pool-course/handbook/register-stake-pool-metadata) for details). 
+```usermod -aG admin [your-user]```
 
-All you have to do is run the script. (<em>important:</em> the script is using `sudo` whenever required, so DO NOT run the script itself with `sudo` !)
+You might need to login again for it to affect.
 
-If all is good, you should be able to see metrics updated on port 9090, and the topology file gets updated once per hour.
+Then, all you have to do is copy `setup.sh` into your home directory (using <strong>scp</strong> or alike), and run it
+(you can also clone this repo to your home dir, and run the script from there).
 
-<h4>What is a topology updater?</h4>
+That's it 😎
+
+The script will install all required packages, and start a docker-compose application running a relay node alongside a prometheus instance, and setup several other required tasks such as a topolgy updater, etc.
+
+<h2>Deploy on Windows</h2>
+
+Using docker, deploying on Windows is a piece of cake cake too 🍰
+
+Install [Docker Desktop](https://docs.docker.com/desktop/windows/install/) on your windows machine, and follow the instruction to install and enable [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-manual) (see [this](https://docs.docker.com/desktop/windows/wsl/) for additional info).
+Then, open the Linux shell (I used Ubuntu 20.04 LTS, from the Microsoft App Store), and follow the exact same instructions as above.
+
+That's it 😎
+
+<h2>Deploying a core (block-producing node)</h2>
+
+If you want to run a block producer (core) node, simply run the same script with the `-m core` flag.
+
+Note that in order to run a block producing node you must make sure you have the required keys and certificate under `cardano/node-keys` before running the script (see [here](https://developers.cardano.org/docs/stake-pool-course/handbook/register-stake-pool-metadata) for details).
+
+You should also edit the topology at `cardano/block-producer-topology/block-producer-topology.json` to contain the public IP address of your relay node.
+
+<h2>Script parameters</h2>
+
+<h4>Choose image</h4>
+
+By using the `-i` flag, you can specify the docker image that will be used for the cardano node.
+
+While the default is using [IOHK's official docker image](https://hub.docker.com/r/inputoutput/cardano-node), you can specify any other image as long as it respects the parameters defined in the `docker-compose.yaml`, specifying some required configurations (i.e, topology file, port, etc.). 
+
+You can of course use my image (`eladws/cardano-node`), and check out the `Dockerfile` I used to build it for more details. 
+
+<h4>Relay or Core</h4>
+
+By using the `-m` flag, you can specify which mode you want to deploy - core or relay.
+
+<h2>What is a topology updater?</h2>
 
 In short, it is a process you have to run in order for your node to be known to other peers, and have a list of updated valid peers. This is highly recommended until Cardano will implement its peer-to-peer mechanism.
 
 You can find a comprehensive discussion [here](https://forum.cardano.org/t/is-running-topology-updater-a-must/91494).
 
-<h4>Addresses and ports</h4>
+<h2>Addresses and ports</h2>
 
 This setup is using port `6666` as an incoming port for a regular (relay) node, and port `5555` for the block producing (core) node.
 The host addresses are remained untouched, and need to be set manually if neccessary.
 
+Prometheus is made available on port `9090`.
+
 <h2>Just run the containers</h2>
-Alternatively, you can build and run the containers yourself:
+
+If you prefer running each contaier separately rather than deploying the full setup, you can build and run the containers yourself:
 
 Build a cardano-node container, running the [latest pre-compiled executable](https://hydra.iohk.io/job/Cardano/cardano-node/cardano-node-linux/latest/)
 
