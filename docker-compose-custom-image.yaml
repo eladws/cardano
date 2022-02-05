@@ -2,7 +2,7 @@ version: "3.9"
 services:
   relay-node:
     container_name: "relay-node"
-    image: "${CARDANO_NODE_VERSION:-eladws/cardano-node}"
+    image: "${CARDANO_NODE_IMAGE:-eladws/cardano-node}"
     ports:
       - "12798:12798"
       - "6666:6666"
