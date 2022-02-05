@@ -3,16 +3,13 @@ My Cardano node setup, happily shared for the greater good 🍻
 
 My goal was to try and make the process as simple as possible, and after a significant amount of time spent reading and experimenting, I mangaged to put everything in a <strong><em>single setup script</em></strong>, that will install everything you need and start a healthy and good-looking cardano node 🥳 
 
-(If you like it, please Stake some of your $ADA with me by delegating to the [TRAIL](https://pooltool.io/pool/2191a50e38d946f0980fce56cd338d6d74781b6ee03e491bcb8cdaa2) pool! 🙏🏻)
-
-
 There's also a script for a complete Staking pool setup. 
 
-*** If you find it helpful, please support me by staking with the <em>TRAIL</em> pool 🙏🏻 ***
+*** If you like it, please Stake some of your $ADA with me by delegating to the [TRAIL](https://pooltool.io/pool/2191a50e38d946f0980fce56cd338d6d74781b6ee03e491bcb8cdaa2) pool! 🙏🏻 ***
 
 <h2>Simple node deployment</h2>
 
-First, give your user the required permissions to run all required commands. Depends on your opearating system, it should e something like:
+First, give your user the required permissions to run all required commands. Depends on your opearating system, it should be something like:
 
 ```usermod -aG admin [your-user]```
 
@@ -27,7 +24,7 @@ The script will install all required packages, and start a docker-compose applic
 
 <h2>Deploy on Windows</h2>
 
-Using docker, deploying on Windows is a piece of cake cake too 🍰
+Using docker, deploying on Windows is a piece of cake too 🍰
 
 Install [Docker Desktop](https://docs.docker.com/desktop/windows/install/) on your windows machine, and follow the instruction to install and enable [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-manual) (see [this](https://docs.docker.com/desktop/windows/wsl/) for additional info).
 Then, open the Linux shell (I used Ubuntu 20.04 LTS, from the Microsoft App Store), and follow the exact same instructions as above.
