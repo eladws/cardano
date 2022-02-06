@@ -106,7 +106,7 @@ fi
 # TODO: make a single docker compose with all components, with configurable image, and optional core-node !
 echo "Starting docker $node_mode node using $node_image image..."
 compose_file="cardano/docker-compose-official-image.yaml"
-if [ $node_image != "official" ]; then  
+if [ $node_image != "official" ]; then
     compose_file="cardano/docker-compose-custom-image.yaml"
 fi
 
