@@ -2,7 +2,7 @@ version: "3.9"
 services:
   core-node:
     container_name: "core-node"
-    image: "${CARDANO_NODE_IMAGE:-eladws/cardano-node}"
+    image: "${CARDANO_NODE_IMAGE:-eladws/cardano-core-node}"
     ports:
       - "12799:12799"
       - "5555:5555"
