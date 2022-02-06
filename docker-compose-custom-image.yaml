@@ -23,3 +23,11 @@ volumes:
     relay-node-db:
     relay-node-ipc:
     relay-prometheus-db:
+
+# For WSL on Windows, host folders can be mapped using:
+#  relay-node-db:
+#     driver: local
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: /mnt/d/relay-node-db/
