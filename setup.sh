@@ -63,7 +63,10 @@ wget -O cardano/topology-updates/mainnet-topology.json wget https://hydra.iohk.i
 # make required changes to configuration file
 sed -i 's/127.0.0.1/0.0.0.0/g' cardano/node-config/mainnet-config.json
 sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/node-config/mainnet-config.json
-# TODO: check if ports should also be changed for core node
+# for a core node, change prometheus port to not collide with relay's
+if [ $node_mode == "core" ]; then
+  sed -i 's/12798/12799/g' cardano/node-config/mainnet-config.json  
+fi
 
 if [ $node_mode == "relay" ]; then
     # set topology updates and daily restarts as cron jobs
