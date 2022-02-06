@@ -4,7 +4,6 @@ services:
     container_name: "relay-node"
     image: "${CARDANO_NODE_IMAGE:-eladws/cardano-node}"
     ports:
-      - "12798:12798"
       - "6666:6666"
     volumes:
       - relay-node-db:/node-db

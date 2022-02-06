@@ -4,7 +4,6 @@ services:
     container_name: "core-node"
     image: "${CARDANO_NODE_IMAGE:-eladws/cardano-core-node}"
     ports:
-      - "12799:12799"
       - "5555:5555"
     volumes:
       - core-node-db:/node-db

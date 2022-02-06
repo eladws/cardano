@@ -7,4 +7,4 @@
       - job_name: 'cardano-relay' # To scrape data from the cardano node
         scrape_interval: 5s
         static_configs:
-          - targets: ['relay-node:12798']
+          - targets: ['relay-node:12798'] # TODO: add core node too, and have a single prometheus server
