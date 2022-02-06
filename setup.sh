@@ -50,22 +50,26 @@ then
 fi
 
 # downlaod default configuration
-mkdir cardano/node-config
-wget -O cardano/node-config/mainnet-config.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-config.json
-wget -O cardano/node-config/mainnet-byron-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-byron-genesis.json
-wget -O cardano/node-config/mainnet-shelley-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-shelley-genesis.json
-wget -O cardano/node-config/mainnet-alonzo-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-alonzo-genesis.json
+config_folder="node-config"
+if [ $node_mode == "core" ]; then
+    config_folder="core-node-config"
+fi
+mkdir cardano/$config_folder
+wget -O cardano/$config_folder/mainnet-config.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-config.json
+wget -O cardano/$config_folder/mainnet-byron-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-byron-genesis.json
+wget -O cardano/$config_folder/mainnet-shelley-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-shelley-genesis.json
+wget -O cardano/$config_folder/mainnet-alonzo-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-alonzo-genesis.json
 
 # download initial topology
 mkdir cardano/topology-updates
 wget -O cardano/topology-updates/mainnet-topology.json wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-topology.json
 
 # make required changes to configuration file
-sed -i 's/127.0.0.1/0.0.0.0/g' cardano/node-config/mainnet-config.json
-sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/node-config/mainnet-config.json
+sed -i 's/127.0.0.1/0.0.0.0/g' cardano/$config_folder/mainnet-config.json
+sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/$config_folder/mainnet-config.json
 # for a core node, change prometheus port to not collide with relay's
 if [ $node_mode == "core" ]; then
-  sed -i 's/12798/12799/g' cardano/node-config/mainnet-config.json  
+  sed -i 's/12798/12799/g' cardano/$config_folder/mainnet-config.json  
 fi
 
 if [ $node_mode == "relay" ]; then
