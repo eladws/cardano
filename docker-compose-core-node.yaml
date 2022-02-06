@@ -17,9 +17,9 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - prometheus-db:/prometheus
+      - core-prometheus-db:/prometheus
       - ./prometheus-core-node:/etc/prometheus
 volumes:
     core-node-db:
     core-node-ipc:
-    prometheus-db:
+    core-prometheus-db:

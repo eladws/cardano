@@ -20,7 +20,6 @@ services:
       - relay-prometheus-db:/prometheus
       - ./prometheus:/etc/prometheus
 volumes:
-    # add custom paths if required
     relay-node-db:
     relay-node-ipc:
     relay-prometheus-db:

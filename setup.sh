@@ -56,6 +56,10 @@ wget -O cardano/node-config/mainnet-byron-genesis.json https://hydra.iohk.io/job
 wget -O cardano/node-config/mainnet-shelley-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-shelley-genesis.json
 wget -O cardano/node-config/mainnet-alonzo-genesis.json https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-alonzo-genesis.json
 
+# download initial topology
+mkdir cardano/topology-updates
+wget -O cardano/topology-updates/mainnet-topology.json wget https://hydra.iohk.io/job/Cardano/cardano-node/cardano-deployment/latest-finished/download/1/mainnet-topology.json
+
 # make required changes to configuration file
 sed -i 's/127.0.0.1/0.0.0.0/g' cardano/node-config/mainnet-config.json
 sed -i 's/TraceBlockFetchDecisions\": false/TraceBlockFetchDecisions\": true/g' cardano/node-config/mainnet-config.json
@@ -101,14 +105,14 @@ fi
 
 # TODO: make a single docker compose with all components, with configurable image, and optional core-node !
 echo "Starting docker $node_mode node using $node_image image..."
-compose_file = cardano/docker-compose-official.yaml
+compose_file="cardano/docker-compose-official-image.yaml"
 if [ $node_image != "official" ] 
-    compose_file = cardano/docker-compose-custom.yaml
+    compose_file="cardano/docker-compose-custom-image.yaml"
 fi
 
-if [ $node_mode == "relay" ];
-    CARDANO_NODE_IMAGE=$node_image cardano/docker-compose -f $compose_file up -d
-elif [ $node_mode == "core" ];
+if [ $node_mode == "relay" ]; then
+    CARDANO_NODE_IMAGE=$node_image docker-compose -f $compose_file up -d
+elif [ $node_mode == "core" ]; then
     # TODO: core node should have custom \ official compose files too
     CARDANO_NODE_IMAGE=$node_image docker-compose -f cardano/docker-compose-core-node.yaml up -d
 fi
