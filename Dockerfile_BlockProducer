@@ -16,6 +16,7 @@ RUN tar -xf binary-dist
 CMD ["/cardano/cardano-node", "run", \
     "+RTS", "-N2", "--disable-delayed-os-memory-return", "-I0.3", \
     "-Iw600", "-A16m", "-F1.5", "-H2500M", "-T", "-S", "-RTS", \
+    "--config", "/node-config/mainnet-config.json", \
     # This node require a specific configuration file, to only connect to your relay node. See example in `block-producer-topology.json`
     "--topology", "/node-topology/block-producer-topology.json", \
     "--database-path", "/node-db", \
